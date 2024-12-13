@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
-
 }
 
 android {
@@ -38,17 +37,16 @@ android {
 }
 
 dependencies {
-
-    // AndroidX Kütüphaneleri
+    // AndroidX Libraries
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
-    // Test Bağımlılıkları
+    // Test Dependencies
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -56,12 +54,14 @@ dependencies {
     // Google Maps SDK
     implementation("com.google.android.gms:play-services-maps:19.0.0")
 
-    // Firebase Bağımlılıkları
-    implementation("com.google.firebase:firebase-firestore-ktx:25.1.1")
-    implementation("com.google.firebase:firebase-analytics-ktx:22.1.2")
+    // Firebase Dependencies (BOM Kullanımı)
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
-    // Konum Servisleri (Play Services)
-    implementation("com.google.android.libraries.places:places:3.2.0")
+    // Location Services (Play Services)
     implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    // Google Places API
+    implementation("com.google.android.libraries.places:places:3.2.0")
 }

@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.toilet.R
 import com.example.toilet.data.Place
 import com.example.toilet.data.PlaceType
+import com.example.toilet.viewmodel.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -27,7 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
-    private val markers = mutableListOf<Marker>()  // Marker'ları tutacak liste
+    private lateinit var viewModel: MapViewModel
+    private val markers = mutableListOf<Marker>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,36 +42,52 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // SupportMapFragment'i başlat
+        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragmentContainer) as SupportMapFragment
         mapFragment.getMapAsync(this)
-    }
 
-    private fun onZoomLevelChanged(zoomLevel: Float) {
-        // Marker'ların boyutunu zoom seviyesine göre güncelle
-        markers.forEach { marker ->
-            val newIcon = getMarkerIcon(zoomLevel, marker.tag as PlaceType)  // her marker için doğru ikon tipi
-            marker.setIcon(newIcon)  // Marker'ın ikonunu güncelle
+        // Veriyi yükle
+        viewModel.loadMosqueData()
+        viewModel.loadMetroData()
+        viewModel.loadMallData()
+
+        // Mosque verisini gözlemle
+        viewModel.mosquePlaces.observe(viewLifecycleOwner) { places ->
+            places.forEach { addMarker(it) }
+        }
+
+        // Metro verisini gözlemle
+        viewModel.metroPlaces.observe(viewLifecycleOwner) { places ->
+            places.forEach { addMarker(it) }
+        }
+
+        // Mall verisini gözlemle
+        viewModel.mallPlaces.observe(viewLifecycleOwner) { places ->
+            places.forEach { addMarker(it) }
         }
     }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-
-        // Zoom seviyesi değiştiğinde marker'ları güncelle
         googleMap.setOnCameraIdleListener {
             val zoomLevel = googleMap.cameraPosition.zoom
-            onZoomLevelChanged(zoomLevel)  // Zoom seviyesini alıp marker'ları güncelle
+            updateMarkersByZoom(zoomLevel)
         }
+        // İstanbul koordinatları
+        val istanbul = LatLng(41.0082, 28.9784)
 
-        val uiSettings = googleMap.uiSettings
-        uiSettings.isZoomControlsEnabled = true  // Yakınlaştırma ve uzaklaştırma butonlarını aktif et
+        // İstanbul'a odaklanmak ve harita zoom seviyesini ayarlamak
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(istanbul, 12f))
 
-        val places = listOf(
-            Place("Cami Tuvaleti", LatLng(41.0082, 28.9784), PlaceType.MOSQUE),
-            Place("Metro Tuvaleti", LatLng(41.0050, 28.9750), PlaceType.METRO),
-            Place("AVM Tuvaleti", LatLng(41.0100, 28.9800), PlaceType.MALL)
-        )
+
+        // Zoom butonlarını aktif et
+        googleMap.uiSettings.isZoomControlsEnabled = true
+
+        googleMap.setOnCameraIdleListener {
+            val zoomLevel = googleMap.cameraPosition.zoom
+            updateMarkersByZoom(zoomLevel)
+        }
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -79,76 +98,45 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         } else {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
         }
-
-        // Markerları eklerken zoom'a göre ikonları seç
-        places.forEach { place ->
-            val marker = googleMap.addMarker(
-                MarkerOptions()
-                    .position(place.location)
-                    .title(place.name)
-                    .icon(getMarkerIcon(googleMap.cameraPosition.zoom, place.type))  // Zoom seviyesine göre ikon
-            )
-            marker?.let {
-                it.tag = place.type  // Marker'ın tag'ine yer tipini ekle
-                markers.add(it)  // Marker'ı listeye ekle
-            }
-        }
-
-        val sampleLocation = LatLng(41.05680681802559, 28.97963929921389) // İstanbul koordinatları
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(sampleLocation)
-                .title("Big Kaka Area!!")
-                .icon(getMarkerIcon(googleMap.cameraPosition.tilt, PlaceType.CIHAN)) // Zoom'a göre ikon al
-        )
-
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sampleLocation, 14f))
     }
 
-    private fun updateMarkerIcons(zoomLevel: Float) {
-        // Marker'ların boyutunu zoom seviyesine göre güncelle
+    private fun addMarker(place: Place) {
+        val markerOptions = MarkerOptions()
+            .position(place.location)
+            .title("${place.name} - ${place.rating}")
+            .snippet(place.description)
+            .icon(getMarkerIcon(place.type, googleMap.cameraPosition.zoom))  // Zoom seviyesine göre ikon
+
+        val marker = googleMap.addMarker(markerOptions)
+        marker?.let { markers.add(it) }
+    }
+
+
+    private fun updateMarkersByZoom(zoomLevel: Float) {
         markers.forEach { marker ->
-            marker.setIcon(getMarkerIcon(zoomLevel, PlaceType.MOSQUE))  // Örneğin cami ikonu
-        }
-    }
-
-    private fun getMarkerIcon(zoomLevel: Float, placeType: PlaceType): BitmapDescriptor {
-        val size = when {
-            zoomLevel < 40 -> 80  // çok uzak
-            zoomLevel < 45 -> 105  // orta mesafe
-            else -> 100  // yakın
-        }
-
-        // Her placeType için uygun ikonu seç
-        val iconResource = when (placeType) {
-            PlaceType.MOSQUE -> R.drawable.mosque // Cami ikonu
-            PlaceType.METRO -> R.drawable.subway  // Metro ikonu
-            PlaceType.MALL -> R.drawable.mall    // AVM ikonu
-            else -> R.drawable.cihan           // Varsayılan ikon
-        }
-
-        return BitmapDescriptorFactory.fromBitmap(resizeMapIcons(iconResource, size))
-    }
-
-    private fun resizeMapIcons(iconResourceId: Int, size: Int): Bitmap {
-        val image = BitmapFactory.decodeResource(resources, iconResourceId)
-        return Bitmap.createScaledBitmap(image, size, size, false)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                googleMap.isMyLocationEnabled = true
+            val placeType = marker.tag as? PlaceType
+            placeType?.let {
+                marker.setIcon(getMarkerIcon(it, zoomLevel))
             }
         }
+    }
+    // Marker ikonu için dinamik boyut ve görsel ayarlaması
+    private fun getMarkerIcon(placeType: PlaceType, zoomLevel: Float): BitmapDescriptor {
+        val size = when {
+            zoomLevel <= 40 -> 90  // En yakın zoom seviyesi
+            zoomLevel <= 45 -> 130
+            else -> 150  // En uzak zoom seviyesi
+        }
+
+        val iconResource = when (placeType) {
+            PlaceType.MOSQUE -> R.drawable.mosque
+            PlaceType.METRO -> R.drawable.subway
+            PlaceType.MALL -> R.drawable.mall
+            else -> R.drawable.cihan  // Default görsel
+        }
+
+        val originalIcon = BitmapFactory.decodeResource(resources, iconResource)
+        val resizedIcon = Bitmap.createScaledBitmap(originalIcon, size, size, false)
+        return BitmapDescriptorFactory.fromBitmap(resizedIcon)
     }
 }

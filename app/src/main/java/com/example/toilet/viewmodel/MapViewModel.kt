@@ -3,30 +3,59 @@ package com.example.toilet.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.toilet.data.MosqueRepository
 import com.example.toilet.data.Place
-import com.example.toilet.data.PlaceType
-import com.google.android.gms.maps.model.LatLng
+import com.example.toilet.repository.MallRepository
+import com.example.toilet.repository.MetroRepository
 
-class MapViewModel: ViewModel() {
+class MapViewModel : ViewModel() {
 
-    // yerlerin listesi ve bunlarin marker verileri
-    private val _places = MutableLiveData<List<Place>>()
-    val places: LiveData<List<Place>> get() = _places
+    private val mosqueRepository = MosqueRepository()
+    private val metroRepository = MetroRepository()
+    private val mallRepository = MallRepository()
 
-    init {
-        loadPlaces()
+    private val _mosquePlaces = MutableLiveData<List<Place>>()
+    val mosquePlaces: LiveData<List<Place>> get() = _mosquePlaces
+
+    private val _metroPlaces = MutableLiveData<List<Place>>()
+    val metroPlaces: LiveData<List<Place>> get() = _metroPlaces
+
+    private val _mallPlaces = MutableLiveData<List<Place>>()
+    val mallPlaces: LiveData<List<Place>> get() = _mallPlaces
+
+    fun loadMosqueData() {
+        mosqueRepository.getMuradiyeData { placesList ->
+            _mosquePlaces.value = placesList
+        }
+        mosqueRepository.getTesvikiyeData { placesList ->
+            _mosquePlaces.value = placesList
+        }
+        mosqueRepository.getSultanBayezitData { placeList ->
+            _mosquePlaces.value = placeList
+        }
     }
 
-    private fun loadPlaces() {
-        // veriyi yukle (ornegin: sabit veriler
-        val loadPlaces= listOf(
-            Place("Cami Tuvaleti", LatLng(41.0082, 28.9784), PlaceType.MOSQUE),
-            Place("Metro Tuvaleti", LatLng(41.0050, 28.9750), PlaceType.METRO),
-            Place("AVM Tuvaleti", LatLng(41.0100, 28.9800), PlaceType.MALL)
-        )
-        _places.value = loadPlaces
-
-
+    fun loadMetroData() {
+        metroRepository.getOsmanbeyMetroData { placesList ->
+            _metroPlaces.value = placesList
+        }
+        metroRepository.getTaksimMetroData { placesList ->
+            _metroPlaces.value = placesList
+        }
+        metroRepository.getSishaneMetroData { placeList ->
+            _metroPlaces.value = placeList
+        }
     }
 
+    fun loadMallData() {
+        mallRepository.getZorluMallData { placesList ->
+            _mallPlaces.value = placesList
+        }
+        mallRepository.getCitysMallData { placesList ->
+            _mallPlaces.value = placesList
+        }
+        mallRepository.getIstinyeMallData { placesList ->
+            _mallPlaces.value = placesList
+        }
+    }
 }
