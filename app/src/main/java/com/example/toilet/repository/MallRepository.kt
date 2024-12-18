@@ -25,6 +25,7 @@ class MallRepository {
     }
 
 
+
     fun getDataFromFirestore(collectionPath: String, callback: (List<Place>) -> Unit) {
         firestore.collection(collectionPath) // Path dinamik olarak verilmiştir
             .get()

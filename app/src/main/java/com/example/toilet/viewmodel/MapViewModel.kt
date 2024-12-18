@@ -45,6 +45,18 @@ class MapViewModel : ViewModel() {
         metroRepository.getSishaneMetroData { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.aksarayMetroData{placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.atakoyMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.ataturkHavalimaniMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.bahcelievlerMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
     }
 
     fun loadMallData() {

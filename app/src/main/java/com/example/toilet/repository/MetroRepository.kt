@@ -22,6 +22,22 @@ class MetroRepository {
         val collectionPath = "places/metro/sishaneMetro" // Taksim Metro için path
         getDataFromFirestore(collectionPath, callback)
     }
+    fun aksarayMetroData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/aksarayMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun atakoyMetro(callback: (List<Place>) -> Unit){
+        val collectionPath= "places/metro/atakoyMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun ataturkHavalimaniMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/ataturkhavalimaniMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun bahcelievlerMetro(callback: (List<Place>) -> Unit){
+        val colelctionPath = "places/metro/bahcelievlerMetro"
+        getDataFromFirestore(colelctionPath,callback)
+    }
 
 
 
