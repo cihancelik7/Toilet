@@ -57,6 +57,45 @@ class MapViewModel : ViewModel() {
         metroRepository.bahcelievlerMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.bakirkoyMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.davutpasaMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.dtmMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.emniyetMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.esenlerMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.kocatepeMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.merterMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.sagmalcilarMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.terazidereMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.topkapiUlubatliMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.yenibosnaMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.yenikapiMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.zeytinburnuMetro { placeList->
+            _metroPlaces.value = placeList
+        }
     }
 
     fun loadMallData() {
@@ -68,6 +107,48 @@ class MapViewModel : ViewModel() {
         }
         mallRepository.getIstinyeMallData { placesList ->
             _mallPlaces.value = placesList
+        }
+        mallRepository.getAkasyaMallData { placeList->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getAquafloryaMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getcapacityMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getCevahirMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getEmaarsquareMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getKanyonMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getMallofIstanbulMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getMarmaraForumMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getOzdilekparkMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getPalldiumMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.gettepenautilusMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getTrumpMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getVadiIstanbulMall { placeList ->
+            _mallPlaces.value = placeList
+        }
+        mallRepository.getWatergardenMall { placeList ->
+            _mallPlaces.value = placeList
         }
     }
 }

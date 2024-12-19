@@ -38,6 +38,58 @@ class MetroRepository {
         val colelctionPath = "places/metro/bahcelievlerMetro"
         getDataFromFirestore(colelctionPath,callback)
     }
+    fun bakirkoyMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/bayrampasaMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun davutpasaMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/davutpasaMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun dtmMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/dtmMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun emniyetMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/emniyetMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun esenlerMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/esenlerMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun kocatepeMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/kocatepeMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun merterMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/merterMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun sagmalcilarMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/sagmalcilarMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun terazidereMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/terazidereMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun topkapiUlubatliMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/topkapiUlubatliMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun yenibosnaMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/yenibosnaMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun yenikapiMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/yenikapiMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun zeytinburnuMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/zeytinburnuMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
 
 
 

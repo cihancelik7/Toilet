@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -31,6 +32,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var viewModel: MapViewModel
     private val markers = mutableListOf<Marker>()
+    private val pendingMarkers = mutableListOf<Place>() // Harita hazır olana kadar biriken markerlar
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,22 +57,31 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Mosque verisini gözlemle
         viewModel.mosquePlaces.observe(viewLifecycleOwner) { places ->
-            places.forEach { addMarker(it) }
+            processPlaces(places)
         }
 
         // Metro verisini gözlemle
         viewModel.metroPlaces.observe(viewLifecycleOwner) { places ->
-            places.forEach { addMarker(it) }
+            processPlaces(places)
         }
 
         // Mall verisini gözlemle
         viewModel.mallPlaces.observe(viewLifecycleOwner) { places ->
-            places.forEach { addMarker(it) }
+            processPlaces(places)
         }
     }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+        Log.d("MapFragment", "Harita başarıyla yüklendi.")
+        pendingMarkers.forEach { addMarker(it) }
+        pendingMarkers.clear()
+        googleMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                requireContext(),
+                R.raw.map_style
+            )
+        )
         googleMap.setOnCameraIdleListener {
             val zoomLevel = googleMap.cameraPosition.zoom
             updateMarkersByZoom(zoomLevel)
@@ -99,6 +111,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
         }
     }
+    private fun processPlaces(places: List<Place>) {
+        if (!::googleMap.isInitialized) {
+            pendingMarkers.addAll(places)
+        } else {
+            places.forEach { addMarker(it) }
+        }
+    }
+
 
     private fun addMarker(place: Place) {
         val markerOptions = MarkerOptions()
@@ -124,8 +144,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private fun getMarkerIcon(placeType: PlaceType, zoomLevel: Float): BitmapDescriptor {
         val size = when {
             zoomLevel <= 40 -> 90  // En yakın zoom seviyesi
-            zoomLevel <= 45 -> 130
-            else -> 150  // En uzak zoom seviyesi
+            zoomLevel <= 45 -> 95
+            else -> 110  // En uzak zoom seviyesi
         }
 
         val iconResource = when (placeType) {
