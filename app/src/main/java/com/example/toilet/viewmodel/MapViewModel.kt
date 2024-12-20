@@ -33,6 +33,24 @@ class MapViewModel : ViewModel() {
         mosqueRepository.getSultanBayezitData { placeList ->
             _mosquePlaces.value = placeList
         }
+        mosqueRepository.getAyasofyaData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.getBeyazitData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.getNuruosmaniyeData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.getSuleymaniyeData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.getSultanAhmetData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.getYeniData { placeList ->
+            _mosquePlaces.value = placeList
+        }
     }
 
     fun loadMetroData() {

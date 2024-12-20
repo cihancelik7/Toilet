@@ -67,6 +67,7 @@ class DetailsFragment : DialogFragment() {
 
 
 
+
         val ivRestroom = view.findViewById<ImageView>(R.id.ivRestroom)
         val ivToilet = view.findViewById<ImageView>(R.id.ivToilet)
         val ivBaby = view.findViewById<ImageView>(R.id.ivBaby)

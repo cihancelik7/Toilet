@@ -23,6 +23,39 @@ class MosqueRepository {
         val collectionPath = "places/mosque/sultanbayezitMosq" // Tesvikiye Camii için path
         getDataFromFirestore(collectionPath, callback)
     }
+    fun getAyasofyaData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/ayasofyaMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun getBeyazitData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/beyazitMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun getNuruosmaniyeData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/nuruosmaniyeMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun getSuleymaniyeData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/suleymaniyeMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun getSultanAhmetData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/sultanahmetMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun getYeniData(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/yeniMosq"
+        getDataFromFirestore(collectionPath,callback)
+    }
+
+
+
+
+
+
+
+
+
 
 
 
