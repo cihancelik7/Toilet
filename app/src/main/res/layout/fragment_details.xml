@@ -29,15 +29,41 @@
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
-    <!-- Açıklama -->
-    <TextView
-        android:id="@+id/tvPlaceDescription"
+    <!-- Özellik İkonları -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Description of the place goes here. This is a placeholder."
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_marginBottom="16dp" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <!-- Erkek/Kadın İkonu -->
+        <ImageView
+            android:id="@+id/ivRestroom"
+            android:visibility="gone"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/restroom"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Engelli İkonu -->
+        <ImageView
+            android:id="@+id/ivToilet"
+            android:layout_width="40dp"
+            android:visibility="gone"
+            android:layout_height="40dp"
+            android:src="@drawable/toilet"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Bebek Bakım İkonu -->
+        <ImageView
+            android:id="@+id/ivBaby"
+            android:layout_width="40dp"
+            android:visibility="gone"
+            android:layout_height="40dp"
+            android:src="@drawable/baby"
+           />
+    </LinearLayout>
 
     <!-- Ortalama Puan -->
     <TextView
@@ -61,24 +87,4 @@
         android:layout_gravity="center"
         android:layout_marginBottom="16dp" />
 
-    <!-- Ek Bilgiler için Kaydırılabilir Alan -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Additional Information"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:layout_marginBottom="8dp" />
-
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

@@ -55,15 +55,36 @@ class DetailsFragment : DialogFragment() {
 
         // UI Güncellemesi
         val tvPlaceName = view.findViewById<TextView>(R.id.tvPlaceName)
-        val tvPlaceDescription = view.findViewById<TextView>(R.id.tvPlaceDescription)
+      //  val tvPlaceDescription = view.findViewById<TextView>(R.id.tvPlaceDescription)
         val rbRating = view.findViewById<RatingBar>(R.id.rbRating)
         val ratingValue = view.findViewById<TextView>(R.id.tvAverageRating)
         val ivPlaceImage = view.findViewById<ImageView>(R.id.ivPlaceImage)
 
         tvPlaceName.text = place.name
-        tvPlaceDescription.text = place.description
+       // tvPlaceDescription.text = place.description
         rbRating.rating = place.rating.toFloat()
         ratingValue.text = "Average Rating: "+place.rating.toString()
+
+
+
+        val ivRestroom = view.findViewById<ImageView>(R.id.ivRestroom)
+        val ivToilet = view.findViewById<ImageView>(R.id.ivToilet)
+        val ivBaby = view.findViewById<ImageView>(R.id.ivBaby)
+
+
+        // Özellik Kontrolü
+        val description = place.description
+        if ("Erkek" in description || "Kadın" in description) {
+            ivRestroom.visibility = View.VISIBLE
+        }
+        if ("Engelli" in description) {
+            ivToilet.visibility = View.VISIBLE
+        }
+        if ("Bebek Bakım" in description) {
+            ivBaby.visibility = View.VISIBLE
+        }
+
+
 
         // Firebase'den dinamik olarak fotoğraf URL'sini çekmek için örnek kod (Glide kullanılabilir)
         val firestore = FirebaseFirestore.getInstance()
