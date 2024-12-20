@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.example.toilet.R
 import com.example.toilet.data.Place
@@ -42,6 +43,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -69,6 +71,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         viewModel.mallPlaces.observe(viewLifecycleOwner) { places ->
             processPlaces(places)
         }
+
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -82,10 +85,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 R.raw.map_style
             )
         )
+        googleMap.setOnInfoWindowClickListener { marker ->
+            val place = marker.tag as? Place // Place nesnesini marker ile ilişkilendiriyoruz
+            place?.let {
+                val detailsFragment = DetailsFragment.newInstance(it)
+                detailsFragment.show(parentFragmentManager, "DetailsFragment")
+            }
+        }
         googleMap.setOnCameraIdleListener {
             val zoomLevel = googleMap.cameraPosition.zoom
             updateMarkersByZoom(zoomLevel)
         }
+
         // İstanbul koordinatları
         val istanbul = LatLng(41.0082, 28.9784)
 
@@ -125,9 +136,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             .position(place.location)
             .title("${place.name} - ${place.rating}")
             .snippet(place.description)
-            .icon(getMarkerIcon(place.type, googleMap.cameraPosition.zoom))  // Zoom seviyesine göre ikon
+            .icon(getMarkerIcon(place.type, googleMap.cameraPosition.zoom))
 
         val marker = googleMap.addMarker(markerOptions)
+        marker?.tag = place // Marker ile Place ilişkilendirildi
         marker?.let { markers.add(it) }
     }
 

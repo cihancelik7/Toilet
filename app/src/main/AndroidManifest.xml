@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Toilet"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
 
         <!-- MainActivity, uygulamanın ana giriş noktası olmalı -->
@@ -27,7 +28,7 @@
         <!-- Google API için gerekli meta-data -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAaTvFeJS79z7z2Rv_KCj7_8eOLsLDTto0" />
+            android:value="AIzaSyAqaRFs-4voAqBSBQB36IMJIRUvYqrSIPc" />
     </application>
 
 </manifest>

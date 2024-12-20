@@ -1,14 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_background"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.DetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <!-- Mekan Fotoğrafı -->
+    <ImageView
+        android:id="@+id/ivPlaceImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cihan"
+        android:layout_marginBottom="16dp" />
 
-</FrameLayout>
+    <!-- Yer Adı -->
+    <TextView
+        android:id="@+id/tvPlaceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Name"
+        android:textColor="@color/black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Açıklama -->
+    <TextView
+        android:id="@+id/tvPlaceDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Description of the place goes here. This is a placeholder."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Ortalama Puan -->
+    <TextView
+        android:id="@+id/tvAverageRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average Rating: 4.5"
+        android:textColor="@color/black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Puanlama Yıldızları -->
+    <RatingBar
+        android:id="@+id/rbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="4.5"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Ek Bilgiler için Kaydırılabilir Alan -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Additional Information"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_marginBottom="8dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

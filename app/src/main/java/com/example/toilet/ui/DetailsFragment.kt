@@ -1,60 +1,94 @@
 package com.example.toilet.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import com.example.toilet.R
+import com.example.toilet.data.Place
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class DetailsFragment : DialogFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var place: Place // Place nesnesi
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    companion object {
+        private const val ARG_PLACE = "arg_place"
+
+        fun newInstance(place: Place): DetailsFragment {
+            val fragment = DetailsFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_PLACE, place)
+            fragment.arguments = args
+            return fragment
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NO_FRAME, R.style.TransparentDialog)
+        place = arguments?.getParcelable(ARG_PLACE)
+            ?: throw IllegalArgumentException("Place is required")
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        val view = inflater.inflate(R.layout.fragment_details, container, false)
+
+        // UI Güncellemesi
+        val tvPlaceName = view.findViewById<TextView>(R.id.tvPlaceName)
+        val tvPlaceDescription = view.findViewById<TextView>(R.id.tvPlaceDescription)
+        val rbRating = view.findViewById<RatingBar>(R.id.rbRating)
+        val ratingValue = view.findViewById<TextView>(R.id.tvAverageRating)
+        val ivPlaceImage = view.findViewById<ImageView>(R.id.ivPlaceImage)
+
+        tvPlaceName.text = place.name
+        tvPlaceDescription.text = place.description
+        rbRating.rating = place.rating.toFloat()
+        ratingValue.text = "Average Rating: "+place.rating.toString()
+
+        // Firebase'den dinamik olarak fotoğraf URL'sini çekmek için örnek kod (Glide kullanılabilir)
+        val firestore = FirebaseFirestore.getInstance()
+        firestore.collection("places")
+            .document(place.id)
+            .get()
+            .addOnSuccessListener { document ->
+                val imageUrl = document.getString("imageUrl") // Belgedeki `imageUrl` alanını kontrol et
+                if (!imageUrl.isNullOrEmpty()) {
+                    // Glide ile yükleme (isteğe bağlı)
+                    /*
+                    Glide.with(this)
+                        .load(imageUrl) // Fotoğraf URL'si
+                        .placeholder(R.drawable.placeholder_image) // Yüklenirken gösterilecek görsel
+                        .into(ivPlaceImage)
+                    */
+                } else {
+                 //   ivPlaceImage.setImageResource(R.drawable.placeholder_image) // Varsayılan görsel
                 }
             }
+            .addOnFailureListener { e ->
+             //   ivPlaceImage.setImageResource(R.drawable.error_image) // Hata durumunda görsel
+                e.message?.let { android.util.Log.e("DetailsFragment", it) }
+            }
+
+        return view
     }
 }
