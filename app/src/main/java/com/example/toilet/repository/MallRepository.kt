@@ -9,6 +9,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MallRepository {
     private val firestore = FirebaseFirestore.getInstance()
 
+    fun getMallData(subCategory: String, callback: (List<Place>) -> Unit) {
+        val collectionPath = "places/mall/$subCategory" // Dinamik olarak subCategory'yi kullanıyoruz
+        getDataFromFirestore(collectionPath, callback)
+    }
 
     fun getZorluMallData(callback: (List<Place>) -> Unit) {
         val collectionPath = "places/mall/zorluMall" // Zorlu Mall için path
@@ -105,7 +109,7 @@ class MallRepository {
                             else -> PlaceType.CIHAN
                         }
 
-                        val place = Place(id, name, latLng, placeType, description, rating, category)
+                        val place = Place(id, name, latLng, placeType, description, rating, category, subCategory = "")
                         placesList.add(place)
                     } catch (e: Exception) {
                         Log.e("FirestoreError", "Veri hatası: ${document.id}, Hata: ${e.message}")

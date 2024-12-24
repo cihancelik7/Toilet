@@ -3,10 +3,10 @@ package com.example.toilet.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.toilet.data.MosqueRepository
 import com.example.toilet.data.Place
 import com.example.toilet.repository.MallRepository
 import com.example.toilet.repository.MetroRepository
+import com.example.toilet.repository.MosqueRepository
 
 class MapViewModel : ViewModel() {
 
@@ -22,6 +22,10 @@ class MapViewModel : ViewModel() {
 
     private val _mallPlaces = MutableLiveData<List<Place>>()
     val mallPlaces: LiveData<List<Place>> get() = _mallPlaces
+
+    // Rating güncellemesi için LiveData
+    private val _updatedRating = MutableLiveData<Double>()
+    val updatedRating: LiveData<Double> get() = _updatedRating
 
     fun loadMosqueData() {
         mosqueRepository.getMuradiyeData { placesList ->
@@ -54,14 +58,8 @@ class MapViewModel : ViewModel() {
     }
 
     fun loadMetroData() {
-        metroRepository.getOsmanbeyMetroData { placesList ->
+        metroRepository.get4LeventMetro { placesList ->
             _metroPlaces.value = placesList
-        }
-        metroRepository.getTaksimMetroData { placesList ->
-            _metroPlaces.value = placesList
-        }
-        metroRepository.getSishaneMetroData { placeList ->
-            _metroPlaces.value = placeList
         }
         metroRepository.aksarayMetroData{placeList ->
             _metroPlaces.value = placeList
@@ -72,10 +70,19 @@ class MapViewModel : ViewModel() {
         metroRepository.ataturkHavalimaniMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.ataturkOtoSanayiMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.bahcelievlerMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.bakirkoyMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.bayrampasaMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.darussafakaMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.davutpasaMetro { placeList->
@@ -90,19 +97,55 @@ class MapViewModel : ViewModel() {
         metroRepository.esenlerMetro { placeList->
             _metroPlaces.value = placeList
         }
+        metroRepository.gayrettepeMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.haciosmanMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.halicMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.ituAyazagaMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.kocatepeMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.leventMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.mecidiyekoyMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.merterMetro { placeList->
             _metroPlaces.value = placeList
         }
+        metroRepository.getOsmanbeyMetroData { placesList ->
+            _metroPlaces.value = placesList
+        }
         metroRepository.sagmalcilarMetro { placeList->
             _metroPlaces.value = placeList
+        }
+        metroRepository.sanayiMahallesiMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.seyratepeMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.getSishaneMetroData { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.getTaksimMetroData { placesList ->
+            _metroPlaces.value = placesList
         }
         metroRepository.terazidereMetro { placeList->
             _metroPlaces.value = placeList
         }
         metroRepository.topkapiUlubatliMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.veznecilerMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.yenibosnaMetro { placeList->
@@ -168,5 +211,10 @@ class MapViewModel : ViewModel() {
         mallRepository.getWatergardenMall { placeList ->
             _mallPlaces.value = placeList
         }
+    }
+
+    // Rating güncellemelerini takip et
+    fun updateRating(newRating: Double) {
+        _updatedRating.value = newRating
     }
 }

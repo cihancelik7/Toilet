@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import com.example.toilet.R
 import com.example.toilet.data.Place
@@ -35,7 +34,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val markers = mutableListOf<Marker>()
     private val pendingMarkers = mutableListOf<Place>() // Harita hazır olana kadar biriken markerlar
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,11 +41,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java) // ViewModel'i activity'den al
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragmentContainer) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -72,6 +69,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             processPlaces(places)
         }
 
+        // Ortalamayı güncellemek için gözlemci
+        viewModel.updatedRating.observe(viewLifecycleOwner) { newAverageRating ->
+            updateMarkers(newAverageRating)
+        }
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -103,7 +104,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // İstanbul'a odaklanmak ve harita zoom seviyesini ayarlamak
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(istanbul, 12f))
 
-
         // Zoom butonlarını aktif et
         googleMap.uiSettings.isZoomControlsEnabled = true
 
@@ -122,6 +122,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
         }
     }
+
     private fun processPlaces(places: List<Place>) {
         if (!::googleMap.isInitialized) {
             pendingMarkers.addAll(places)
@@ -130,11 +131,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
     private fun addMarker(place: Place) {
         val markerOptions = MarkerOptions()
             .position(place.location)
-            .title("${place.name} - ${place.rating}")
+            .title("${place.name} - ${String.format("%.1f", place.averageRating)}")
             .snippet(place.description)
             .icon(getMarkerIcon(place.type, googleMap.cameraPosition.zoom))
 
@@ -143,6 +143,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         marker?.let { markers.add(it) }
     }
 
+    private fun updateMarkers(newAverageRating: Double) {
+        markers.forEach { marker ->
+            val place = marker.tag as? Place
+            place?.let {
+                // Eğer marker'ın yeri güncellenmişse
+                if (it.id == place.id) {
+                    marker.title = "${it.name} - ${String.format("%.1f", newAverageRating)}"
+                    it.averageRating = newAverageRating
+                }
+            }
+        }
+    }
 
     private fun updateMarkersByZoom(zoomLevel: Float) {
         markers.forEach { marker ->
@@ -152,7 +164,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
     }
-    // Marker ikonu için dinamik boyut ve görsel ayarlaması
+
     private fun getMarkerIcon(placeType: PlaceType, zoomLevel: Float): BitmapDescriptor {
         val size = when {
             zoomLevel <= 40 -> 90  // En yakın zoom seviyesi

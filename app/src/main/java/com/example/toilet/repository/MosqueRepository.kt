@@ -1,12 +1,13 @@
-package com.example.toilet.data
+package com.example.toilet.repository
 
 import android.util.Log
+import com.example.toilet.data.Place
+import com.example.toilet.data.PlaceType
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MosqueRepository {
     private val firestore = FirebaseFirestore.getInstance()
-
 
 
     fun getMuradiyeData(callback: (List<Place>) -> Unit) {
@@ -71,7 +72,7 @@ class MosqueRepository {
                     val latLng = geoPoint?.let { LatLng(it.latitude, it.longitude) } ?: LatLng(0.0, 0.0)
                     val type = document.getString("type") ?: "MOSQUE"
                     val description = document.getString("description") ?: "Açıklama yok"
-                    val rating = document.getDouble("rating") ?: 0.0
+                    val rating = document.getDouble("averageRating") ?: 0.0
                     val category = document.getString("category") ?: "Unknown"
 
                     val placeType = when (type.uppercase()) {
@@ -81,7 +82,7 @@ class MosqueRepository {
                         else -> PlaceType.CIHAN
                     }
 
-                    val place = Place(id, name, latLng, placeType, description, rating, category)
+                    val place = Place(id, name, latLng, placeType, description, rating, category,"")
                     placesList.add(place)
                 }
                 callback(placesList)

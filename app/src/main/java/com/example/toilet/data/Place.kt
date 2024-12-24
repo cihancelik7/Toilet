@@ -11,9 +11,10 @@ data class Place(
     val location: LatLng,
     val type: PlaceType,
     val description: String,
-    val rating: Double,
-    val category: String // (Opsiyonel) Kategori bilgisi
-):Parcelable
+    var averageRating: Double,
+    val category: String, // Kategori bilgisi (örneğin: mosque, mall, metro)
+    val subCategory: String // Alt kategori bilgisi (örneğin: tesvikiyeMosq, zorluMall)
+) : Parcelable
 
 enum class PlaceType {
     MOSQUE, METRO, MALL, CIHAN // Yeni türler eklendi
