@@ -70,8 +70,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         // Ortalamayı güncellemek için gözlemci
-        viewModel.updatedRating.observe(viewLifecycleOwner) { newAverageRating ->
-            updateMarkers(newAverageRating)
+        viewModel.updatedPlace.observe(viewLifecycleOwner) { updatedPlace ->
+            updateMarkers(updatedPlace)
         }
     }
 
@@ -87,7 +87,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             )
         )
         googleMap.setOnInfoWindowClickListener { marker ->
-            val place = marker.tag as? Place // Place nesnesini marker ile ilişkilendiriyoruz
+            val place = marker.tag as? Place
             place?.let {
                 val detailsFragment = DetailsFragment.newInstance(it)
                 detailsFragment.show(parentFragmentManager, "DetailsFragment")
@@ -143,19 +143,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         marker?.let { markers.add(it) }
     }
 
-    private fun updateMarkers(newAverageRating: Double) {
+    private fun updateMarkers(updatedPlace: Place) {
         markers.forEach { marker ->
             val place = marker.tag as? Place
-            place?.let {
-                // Eğer marker'ın yeri güncellenmişse
-                if (it.id == place.id) {
-                    marker.title = "${it.name} - ${String.format("%.1f", newAverageRating)}"
-                    it.averageRating = newAverageRating
-                }
+            if (place != null && place.id == updatedPlace.id) {
+                // Marker bilgilerini güncelle
+                place.averageRating = updatedPlace.averageRating
+                marker.title = "${place.name} - ${String.format("%.1f", updatedPlace.averageRating)}"
+                marker.showInfoWindow() // Bilgi penceresini anında göster
             }
         }
     }
-
     private fun updateMarkersByZoom(zoomLevel: Float) {
         markers.forEach { marker ->
             val placeType = marker.tag as? PlaceType
@@ -173,9 +171,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         val iconResource = when (placeType) {
-            PlaceType.MOSQUE -> R.drawable.mosque
-            PlaceType.METRO -> R.drawable.subway
-            PlaceType.MALL -> R.drawable.mall
+            PlaceType.MOSQUE -> R.drawable.mosqicon
+            PlaceType.METRO -> R.drawable.metroicon
+            PlaceType.MALL -> R.drawable.shopmallicon
             else -> R.drawable.cihan  // Default görsel
         }
 

@@ -2,15 +2,20 @@ package com.example.toilet.repository
 
 import android.util.Log
 import com.example.toilet.data.Place
+import com.example.toilet.data.PlaceRepository
 import com.example.toilet.data.PlaceType
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MetroRepository {
+class MetroRepository:PlaceRepository() {
     private val firestore = FirebaseFirestore.getInstance()
 
     fun get4LeventMetro(callback: (List<Place>) -> Unit){
         val collectionPath = "places/metro/4leventMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun arnavutkoyhastaneMetro(callback: (List<Place>) -> Unit){
+        val collectionPath ="places/metro/arnavutkoyhastaneMetro"
         getDataFromFirestore(collectionPath,callback)
     }
     fun aksarayMetroData(callback: (List<Place>) -> Unit){
@@ -34,7 +39,7 @@ class MetroRepository {
         getDataFromFirestore(colelctionPath,callback)
     }
     fun bakirkoyMetro(callback: (List<Place>) -> Unit){
-        val collectionPath = "places/metro/bayrampasaMetro"
+        val collectionPath = "places/metro/bakirkoyMetro"
         getDataFromFirestore(collectionPath,callback)
     }
     fun bayrampasaMetro(callback: (List<Place>) -> Unit){
@@ -65,6 +70,10 @@ class MetroRepository {
         val collectionPath = "places/metro/gayrettepeMetro"
         getDataFromFirestore(collectionPath,callback)
     }
+    fun gokturkMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/gokturkMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
     fun haciosmanMetro(callback: (List<Place>) -> Unit){
         val collectionPath = "places/metro/haciosmanMetro"
         getDataFromFirestore(collectionPath,callback)
@@ -73,8 +82,28 @@ class MetroRepository {
         val collectionPath = "places/metro/halicMetro"
         getDataFromFirestore(collectionPath,callback)
     }
+    fun hasdalMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "/places/metro/hasdalMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun ihsaniyeMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "/places/metro/ihsaniyeMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun istanbulhavalimaniMetro(callback: (List<Place>) -> Unit){
+        val collectionPath="places/metro/istanbulhavalimaniMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
     fun ituAyazagaMetro(callback: (List<Place>) -> Unit){
         val collectionPath = "places/metro/ituayazagaMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun kagithaneMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/kagithaneMetro"
+        getDataFromFirestore(collectionPath,callback)
+    }
+    fun kemerburgazMetro(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/metro/kemerburgazMetro"
         getDataFromFirestore(collectionPath,callback)
     }
     fun kocatepeMetro(callback: (List<Place>) -> Unit){
@@ -147,35 +176,5 @@ class MetroRepository {
 
 
 
-    fun getDataFromFirestore(collectionPath: String, callback: (List<Place>) -> Unit) {
-        firestore.collection(collectionPath) // Path dinamik olarak verilmiştir
-            .get()
-            .addOnSuccessListener { documents ->
-                val placesList = mutableListOf<Place>()
-                for (document in documents) {
-                    val id = document.id
-                    val name = document.getString("name") ?: "Bilinmiyor"
-                    val geoPoint = document.getGeoPoint("location")
-                    val latLng = geoPoint?.let { LatLng(it.latitude, it.longitude) } ?: LatLng(0.0, 0.0)
-                    val type = document.getString("type") ?: "MOSQUE"
-                    val description = document.getString("description") ?: "Açıklama yok"
-                    val rating = document.getDouble("rating") ?: 0.0
-                    val category = document.getString("category") ?: "Unknown"
 
-                    val placeType = when (type.uppercase()) {
-                        "MOSQUE" -> PlaceType.MOSQUE
-                        "METRO" -> PlaceType.METRO
-                        "MALL" -> PlaceType.MALL
-                        else -> PlaceType.CIHAN
-                    }
-
-                    val place = Place(id, name, latLng, placeType, description, rating, category, subCategory = "")
-                    placesList.add(place)
-                }
-                callback(placesList)
-            }
-            .addOnFailureListener { exception ->
-                Log.e("FirestoreError", "Veri çekme hatası: ${exception.message}")
-            }
-    }
 }

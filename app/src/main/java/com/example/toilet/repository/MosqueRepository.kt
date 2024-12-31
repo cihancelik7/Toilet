@@ -2,11 +2,12 @@ package com.example.toilet.repository
 
 import android.util.Log
 import com.example.toilet.data.Place
+import com.example.toilet.data.PlaceRepository
 import com.example.toilet.data.PlaceType
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MosqueRepository {
+class MosqueRepository: PlaceRepository() {
     private val firestore = FirebaseFirestore.getInstance()
 
 
@@ -60,35 +61,5 @@ class MosqueRepository {
 
 
 
-    fun getDataFromFirestore(collectionPath: String, callback: (List<Place>) -> Unit) {
-        firestore.collection(collectionPath) // Path dinamik olarak verilmiştir
-            .get()
-            .addOnSuccessListener { documents ->
-                val placesList = mutableListOf<Place>()
-                for (document in documents) {
-                    val id = document.id
-                    val name = document.getString("name") ?: "Bilinmiyor"
-                    val geoPoint = document.getGeoPoint("location")
-                    val latLng = geoPoint?.let { LatLng(it.latitude, it.longitude) } ?: LatLng(0.0, 0.0)
-                    val type = document.getString("type") ?: "MOSQUE"
-                    val description = document.getString("description") ?: "Açıklama yok"
-                    val rating = document.getDouble("averageRating") ?: 0.0
-                    val category = document.getString("category") ?: "Unknown"
 
-                    val placeType = when (type.uppercase()) {
-                        "MOSQUE" -> PlaceType.MOSQUE
-                        "METRO" -> PlaceType.METRO
-                        "MALL" -> PlaceType.MALL
-                        else -> PlaceType.CIHAN
-                    }
-
-                    val place = Place(id, name, latLng, placeType, description, rating, category,"")
-                    placesList.add(place)
-                }
-                callback(placesList)
-            }
-            .addOnFailureListener { exception ->
-                Log.e("FirestoreError", "Veri çekme hatası: ${exception.message}")
-            }
-    }
 }

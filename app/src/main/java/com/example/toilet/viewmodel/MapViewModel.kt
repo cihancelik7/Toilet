@@ -27,6 +27,12 @@ class MapViewModel : ViewModel() {
     private val _updatedRating = MutableLiveData<Double>()
     val updatedRating: LiveData<Double> get() = _updatedRating
 
+    // Güncelleme için LiveData
+    private val _updatedPlace = MutableLiveData<Place>()
+    val updatedPlace: LiveData<Place> get() = _updatedPlace
+
+
+
     fun loadMosqueData() {
         mosqueRepository.getMuradiyeData { placesList ->
             _mosquePlaces.value = placesList
@@ -60,6 +66,9 @@ class MapViewModel : ViewModel() {
     fun loadMetroData() {
         metroRepository.get4LeventMetro { placesList ->
             _metroPlaces.value = placesList
+        }
+        metroRepository.arnavutkoyhastaneMetro { placeList ->
+            _metroPlaces.value = placeList
         }
         metroRepository.aksarayMetroData{placeList ->
             _metroPlaces.value = placeList
@@ -100,13 +109,31 @@ class MapViewModel : ViewModel() {
         metroRepository.gayrettepeMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.gokturkMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.haciosmanMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.hasdalMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.halicMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.ihsaniyeMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.istanbulhavalimaniMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.ituAyazagaMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.kagithaneMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.kemerburgazMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.kocatepeMetro { placeList->
@@ -214,7 +241,7 @@ class MapViewModel : ViewModel() {
     }
 
     // Rating güncellemelerini takip et
-    fun updateRating(newRating: Double) {
-        _updatedRating.value = newRating
+    fun updateRating(updatedPlace: Place) {
+        _updatedPlace.value = updatedPlace
     }
 }

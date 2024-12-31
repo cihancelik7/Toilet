@@ -73,10 +73,16 @@ class DetailsFragment : DialogFragment() {
         // Verilerin Yüklenmesi
         tvPlaceName.text = place.name
         rbRating.rating = place.averageRating.toFloat()
-        viewModel.updatedRating.observe(viewLifecycleOwner) { updatedRating ->
-            // Ekranda güncellenmiş ortalama puanı yansıt
-            val ratingValue = view.findViewById<TextView>(R.id.tvAverageRating)
-            ratingValue.text = "Average Rating: ${String.format("%.1f", updatedRating)}"
+        ratingValue.text = "Average Rating: ${String.format("%.1f", place.averageRating)}"
+
+        viewModel.updatedPlace.observe(viewLifecycleOwner) { updatedPlace ->
+            if (updatedPlace.id == place.id) {
+                // Yıldız değerini güncelle
+                rbRating.rating = updatedPlace.averageRating.toFloat()
+
+                // Average Rating metnini güncelle
+                ratingValue.text = "Average Rating: ${String.format("%.1f", updatedPlace.averageRating)}"
+            }
         }
 
         // Özellik Kontrolü
@@ -140,12 +146,7 @@ class DetailsFragment : DialogFragment() {
             return
         }
 
-        val subCategory = when (category) {
-            "mosque" -> "tesvikiyeMosq" // Burası dinamik olmalı
-            "mall" -> "akasyaMall"
-            "metro" -> "taksimMetro"
-            else -> null
-        } ?: run {
+        val subCategory = getSubCategory(category, place.name) ?: run {
             callback(false, "Geçersiz alt kategori.")
             return
         }
@@ -170,7 +171,6 @@ class DetailsFragment : DialogFragment() {
     }
 
     private fun updateAverageRating(documentRef: DocumentReference, callback: (Boolean, String?) -> Unit) {
-        // `ratings` alt koleksiyonundaki tüm puanları al
         documentRef.collection("ratings").get()
             .addOnSuccessListener { querySnapshot ->
                 val ratings = querySnapshot.documents.mapNotNull { it.getDouble("rating") }
@@ -179,8 +179,9 @@ class DetailsFragment : DialogFragment() {
                 // Ortalama puanı ana belgeye güncelle
                 documentRef.update("averageRating", averageRating)
                     .addOnSuccessListener {
-                        // ViewModel'e güncellenmiş rating'i gönder
-                        viewModel.updateRating(averageRating)
+                        // Güncellenen Place'i ViewModel'e ilet
+                        val updatedPlace = place.copy(averageRating = averageRating)
+                        viewModel.updateRating(updatedPlace)
                         callback(true, null)
                     }
                     .addOnFailureListener { e ->
@@ -190,5 +191,84 @@ class DetailsFragment : DialogFragment() {
             .addOnFailureListener { e ->
                 callback(false, e.message)
             }
+    }
+
+    private fun getSubCategory(category: String, placeName: String): String? {
+        val subCategories = when (category) {
+            "mosque" -> mapOf(
+                "Muradiye Camii" to "muradiyeMosq",
+                "Teşvikiye Camii" to "tesvikiyeMosq",
+                "Sultan Beyazidi Veli Cami" to "sultanbayezitMosq",
+                "Ayasofya Mosque" to "ayasofyaMosq",
+                "Beyazıt Camii" to "beyazitMosq",
+                "Nuruosmaniye Camii" to "nuruosmaniyeMosq",
+                "Süleymaniye Camii" to "suleymaniyeMosq",
+                "Sultanahmet Camii" to "sultanahmetMosq",
+                "Yeni Camii" to "yeniMosq"
+            )
+            "mall" -> mapOf(
+                "Zorlu Center" to "zorluMall",
+                "City's Nişantaşı" to "citysMall",
+                "İstinye Park" to "istinyeParkMall",
+                "Akasya Mall" to "akasyaMall",
+                "Aqua Florya" to "aquafloryaMall",
+                "Capacity Mall" to "capacityMall",
+                "Cevahir Mall" to "cevahirMall",
+                "Emaar Square Mall" to "emaarsquareMall",
+                "Kanyon Mall" to "kanyonMall",
+                "Mall of Istanbul" to "mallofistanbulMall",
+                "Marmara Forum" to "marmaraforumMall",
+                "Özdilek Park Mall" to "ozdilekparkMall",
+                "Palladium AVM" to "palldiumMall",
+                "Tepe Nautilus" to "tepanautilusMall",
+                "Trump Mall" to "trumpMall",
+                "Vadi Istanbul" to "vadiistanbulMall",
+                "Watergarden" to "watergardenMall"
+            )
+            "metro" -> mapOf(
+                "4. Levent Metro" to "4leventMetro",
+                "Arnavutköy Hastane Metro" to "arnavutkoyhastaneMetro",
+                "Aksaray Metro" to "aksarayMetro",
+                "Ataköy Şirinevler Metro" to "atakoyMetro",
+                "Atatürk Havalimanı Metro" to "ataturkhavalimaniMetro",
+                "Atatürk Oto Sanayi Metro" to "ataturkotosanayiMetro",
+                "Bahçelievler Metro" to "bahcelievlerMetro",
+                "Bakırköy Metro" to "bakirkoyMetro",
+                "Bayrampaşa Metro" to "bayrampasaMetro",
+                "Darüşşafaka Metro" to "darussafakaMetro",
+                "Davutpaşa Metro" to "davutpasaMetro",
+                "Dünya Ticaret Merkezi Metro" to "dtmMetro",
+                "Emniyet Metro" to "emniyetMetro",
+                "Esenler Metro" to "esenlerMetro",
+                "Gayrettepe Metro" to "gayrettepeMetro",
+                "Göktürk Metro" to "gokturkMetro",
+                "Hasdal Metro" to "hasdalMetro",
+                "Hacıosman Metro" to "haciosmanMetro",
+                "Haliç Metro" to "halicMetro",
+                "Itü-Ayazağa Metro" to "ituayazagaMetro",
+                "Istanbul Havalimanı Metro" to "istanbulhavalimaniMetro",
+                "Ihsaniye Metro" to "ihsaniyeMetro",
+                "Kemerburgaz Metro" to "kemerburgazMetro",
+                "Kağıthane Metro" to "kagithaneMetro",
+                "Kocatepe Metro" to "kocatepeMetro",
+                "Levent Metro" to "leventMetro",
+                "Mecidiyeköy Metro" to "mecidiyekoyMetro",
+                "Merter Metro" to "merterMetro",
+                "Osmanbey Metro" to "osmanbeyMetro",
+                "Sağmalcılar Metro" to "sagmalcilarMetro",
+                "Sanayi Mahallesi Metro" to "sanayimahallesiMetro",
+                "Seyrantepe Metro" to "seyrantepeMetro",
+                "Şişhane Metro" to "sishaneMetro",
+                "Taksim Metro Durağı" to "taksimMetro",
+                "Terazidere Metro" to "terazidereMetro",
+                "Topkapı - Ulubatlı Metro" to "topkapiUlubatliMetro",
+                "Vezneciler Metro" to "veznecilerMetro",
+                "Yenibosna Metro" to "yenibosnaMetro",
+                "Yenikapı Metro" to "yenikapiMetro",
+                "Zeytinburnu Metro" to "zeytinburnuMetro"
+            )
+            else -> null
+        }
+        return subCategories?.get(placeName)
     }
 }
