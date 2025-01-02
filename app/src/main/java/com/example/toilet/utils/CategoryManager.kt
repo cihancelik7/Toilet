@@ -15,12 +15,13 @@ class CategoryManager {
         ),
         "metro" to listOf(
             "4leventMetro","arnavutkoyhastaneMetro", "aksarayMetro", "atakoyMetro", "ataturkhavalimaniMetro",
-            "ataturkotosanayiMetro", "bahcelievlerMetro", "bakirkoyMetro", "bayrampasaMetro",
+            "ataturkotosanayiMetro","aydintepeMetro", "bahcelievlerMetro", "bakirkoyMetro", "bayrampasaMetro","cayirovaMetro","daricaMetro",
             "darussafakaMetro", "davutpasaMetro", "dtmMetro", "emniyetMetro", "esenlerMetro",
-            "gayrettepeMetro","gokturkMetro", "haciosmanMetro", "halicMetro","ihsaniyeMetro","istanbulhavalimaniMetro", "ituayazagaMetro","kagithaneMetro", "kocatepeMetro",
-            "leventMetro", "mecidiyekoyMetro", "merterMetro", "osmanbeyMetro", "sagmalcilarMetro",
-            "sanayimahallesiMetro", "seyrantepeMetro", "sishaneMetro", "taksimMetro", "terazidereMetro",
-            "topkapiUlubatliMetro", "veznecilerMetro", "yenibosnaMetro", "yenikapiMetro", "zeytinburnuMetro"
+            "gayrettepeMetro","gebzeMetro","gebzeteknikuniMetro", "gokturkMetro","guzelyaliMetro", "haciosmanMetro", "halicMetro","icmelerMetro", "ihsaniyeMetro","istanbulhavalimaniMetro",
+            "ituayazagaMetro","kagithaneMetro", "kaynarcaMetro", "kocatepeMetro",
+            "leventMetro", "mecidiyekoyMetro", "merterMetro", "osmanbeyMetro","osmangaziMetro","pendikMetro", "sagmalcilarMetro",
+            "sanayimahallesiMetro", "seyrantepeMetro", "sishaneMetro", "taksimMetro", "terazidereMetro", "tersaneMetro",
+            "topkapiUlubatliMetro","tuzlaMetro", "veznecilerMetro", "yenibosnaMetro", "yenikapiMetro", "zeytinburnuMetro"
         )
         // "gebzeMetro", "daricaMetro" "osmangaziMetro", "gebzeteknikuniMetro" , "cayirovaMetro", "tuzlaMetro", "icmelerMetro", "aydintepeMetro", "guzelyaliMetro", "tersaneMetro","kaynarcaMetro", "pendikMetro
     )

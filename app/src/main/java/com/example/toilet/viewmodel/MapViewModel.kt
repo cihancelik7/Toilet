@@ -82,6 +82,9 @@ class MapViewModel : ViewModel() {
         metroRepository.ataturkOtoSanayiMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.aydintepeMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.bahcelievlerMetro { placeList ->
             _metroPlaces.value = placeList
         }
@@ -91,7 +94,13 @@ class MapViewModel : ViewModel() {
         metroRepository.bayrampasaMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.cayirovaMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.darussafakaMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.daricaMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.davutpasaMetro { placeList->
@@ -109,7 +118,16 @@ class MapViewModel : ViewModel() {
         metroRepository.gayrettepeMetro { placeList ->
             _metroPlaces.value = placeList
         }
+        metroRepository.gebzeMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.gebzeteknikuniMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.gokturkMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.guzelyaliMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.haciosmanMetro { placeList ->
@@ -119,6 +137,9 @@ class MapViewModel : ViewModel() {
             _metroPlaces.value = placeList
         }
         metroRepository.halicMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.icmelerMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.ihsaniyeMetro { placeList ->
@@ -131,6 +152,9 @@ class MapViewModel : ViewModel() {
             _metroPlaces.value = placeList
         }
         metroRepository.kagithaneMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.kaynarcaMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.kemerburgazMetro { placeList ->
@@ -151,6 +175,12 @@ class MapViewModel : ViewModel() {
         metroRepository.getOsmanbeyMetroData { placesList ->
             _metroPlaces.value = placesList
         }
+        metroRepository.osmangaziMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.pendikMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.sagmalcilarMetro { placeList->
             _metroPlaces.value = placeList
         }
@@ -169,7 +199,13 @@ class MapViewModel : ViewModel() {
         metroRepository.terazidereMetro { placeList->
             _metroPlaces.value = placeList
         }
+        metroRepository.tersaneMetro { placeList ->
+            _metroPlaces.value = placeList
+        }
         metroRepository.topkapiUlubatliMetro { placeList->
+            _metroPlaces.value = placeList
+        }
+        metroRepository.tuzlaMetro { placeList ->
             _metroPlaces.value = placeList
         }
         metroRepository.veznecilerMetro { placeList ->
