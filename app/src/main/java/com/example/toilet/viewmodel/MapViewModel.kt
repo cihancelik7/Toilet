@@ -44,7 +44,19 @@ class MapViewModel : ViewModel() {
         mosqueRepository.balcikfulyaMosq { placeList ->
             _mosquePlaces.value = placeList
         }
+        mosqueRepository.beyogluaksemsettinMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.caglayanyeniMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.cengiztopelMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
         mosqueRepository.ciftecevizlerMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.darulacezeMosq { placeList ->
             _mosquePlaces.value = placeList
         }
         mosqueRepository.ferikoypasamahallesiMosq { placeList ->
@@ -54,6 +66,9 @@ class MapViewModel : ViewModel() {
             _mosquePlaces.value = placeList
         }
         mosqueRepository.hacibulentvezirogluMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.hacitevfikzadeMosq { placeList ->
             _mosquePlaces.value = placeList
         }
         mosqueRepository.harbiyeMosq { placeList ->
@@ -68,10 +83,16 @@ class MapViewModel : ViewModel() {
         mosqueRepository.hasanzeynebMosq { placeList ->
             _mosquePlaces.value = placeList
         }
+        mosqueRepository.huzurMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
         mosqueRepository.ihlamurMosq { placeList ->
             _mosquePlaces.value = placeList
         }
         mosqueRepository.izzetpasaMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.kustepeMosq { placeList ->
             _mosquePlaces.value = placeList
         }
         mosqueRepository.muradiyeData { placesList ->

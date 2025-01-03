@@ -4,9 +4,9 @@ class CategoryManager {
     private val categoryMap = mapOf(
         "mosque" to listOf(
 
-             "ayasofyaMosq","balcikfulyaMosq", "beyazitMosq","ciftecevizlerMosq","ferikoypasamahallesiMosq" ,"fulyayeniMosq",
-            "hacibulentvezirogluMosq" ,"hamidiyemesrutiyetMosq" ,"halilrifatmahallesiMosq", "harbiyeMosq" ,"hasanzeynebMosq" ,"ihlamurMosq","izzetpasaMosq" ,
-            "muradiyeMosq","nuruosmaniyeMosq","sisliMosq", "suleymaniyeMosq", "sultanahmetMosq",
+             "ayasofyaMosq","balcikfulyaMosq", "beyazitMosq","beyogluaksemsettinMosq" ,"caglayanyeniMosq" ,"cengiztopelMosq" ,"ciftecevizlerMosq", "darulacezeMosq" ,"ferikoypasamahallesiMosq" ,"fulyayeniMosq",
+            "hacibulentvezirogluMosq" ,"hacitevfikzadeMosq" ,"hamidiyemesrutiyetMosq" ,"halilrifatmahallesiMosq", "harbiyeMosq" ,"hasanzeynebMosq" ,"huzurMosq" ,"ihlamurMosq","izzetpasaMosq" ,
+            "kustepeMosq" ,"muradiyeMosq","nuruosmaniyeMosq","sisliMosq", "suleymaniyeMosq", "sultanahmetMosq",
             "sultanbayezitMosq","talatpasamerkezMosq" ,"tesvikiyeMosq", "yeniMosq"
         ),
         "mall" to listOf(
@@ -25,7 +25,7 @@ class CategoryManager {
             "sanayimahallesiMetro", "seyrantepeMetro", "sishaneMetro", "taksimMetro", "terazidereMetro", "tersaneMetro",
             "topkapiUlubatliMetro","tuzlaMetro", "veznecilerMetro", "yenibosnaMetro", "yenikapiMetro", "zeytinburnuMetro"
         )
-        // "sisliMosq" , "halilrifatmahallesiMosq" , "fulyayeniMosq" , "balcikfulyaMosq" , "hamidiyemesrutiyetMosq" , "ciftecevizlerMosq" , "hacibulentvezirogluMosq" , "ferikoypasamahallesiMosq" , "talatpasamerkezMosq" , "harbiyeMosq" , "hasanzeynebMosq" , "izzetpasaMosq" , "ihlamurMosq"
+        // "kustepeMosq" , "hacitevfikzadeMosq" , "darulacezeMosq" , "caglayanyeniMosq" , "cengiztopelMosq" , "huzurMosq" , "beyogluaksemsettinMosq" , "" , "" , "" , "" , "" , ""
     )
 
     fun getSubCategories(category: String): List<String>? {

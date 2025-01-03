@@ -20,8 +20,24 @@ class MosqueRepository: PlaceRepository() {
         val collectionPath = "places/mosque/beyazitMosq"
         getDataFromFirestore(collectionPath, callback)
     }
+    fun beyogluaksemsettinMosq(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/beyogluaksemsettinMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun caglayanyeniMosq(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/caglayanyeniMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun cengiztopelMosq(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/cengiztopelMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
     fun ciftecevizlerMosq(callback: (List<Place>) -> Unit){
         val collectionPath = "places/mosque/ciftecevizlerMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun darulacezeMosq(callback: (List<Place>) -> Unit){
+        val collectionPath = "places/mosque/darulacezeMosq"
         getDataFromFirestore(collectionPath, callback)
     }
     fun ferikoypasamahallesiMosq(callback: (List<Place>) -> Unit) {
@@ -34,6 +50,10 @@ class MosqueRepository: PlaceRepository() {
     }
     fun hacibulentvezirogluMosq(callback: (List<Place>) -> Unit) {
         val collectionPath = "places/mosque/hacibulentvezirogluMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun hacitevfikzadeMosq(callback: (List<Place>) -> Unit) {
+        val collectionPath = "places/mosque/hacitevfikzadeMosq"
         getDataFromFirestore(collectionPath, callback)
     }
     fun harbiyeMosq(callback: (List<Place>) -> Unit) {
@@ -52,12 +72,20 @@ class MosqueRepository: PlaceRepository() {
         val collectionPath = "places/mosque/hasanzeynebMosq"
         getDataFromFirestore(collectionPath, callback)
     }
+    fun huzurMosq(callback: (List<Place>) -> Unit) {
+        val collectionPath = "places/mosque/huzurMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
     fun izzetpasaMosq(callback: (List<Place>) -> Unit) {
         val collectionPath = "places/mosque/izzetpasaMosq"
         getDataFromFirestore(collectionPath, callback)
     }
     fun ihlamurMosq(callback: (List<Place>) -> Unit) {
         val collectionPath = "places/mosque/ihlamurMosq"
+        getDataFromFirestore(collectionPath, callback)
+    }
+    fun kustepeMosq(callback: (List<Place>) -> Unit) {
+        val collectionPath = "places/mosque/kustepeMosq"
         getDataFromFirestore(collectionPath, callback)
     }
     fun muradiyeData(callback: (List<Place>) -> Unit) {
