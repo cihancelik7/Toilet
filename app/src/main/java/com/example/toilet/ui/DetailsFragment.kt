@@ -196,14 +196,27 @@ class DetailsFragment : DialogFragment() {
     private fun getSubCategory(category: String, placeName: String): String? {
         val subCategories = when (category) {
             "mosque" -> mapOf(
-                "Muradiye Camii" to "muradiyeMosq",
-                "Teşvikiye Camii" to "tesvikiyeMosq",
-                "Sultan Beyazidi Veli Cami" to "sultanbayezitMosq",
                 "Ayasofya Mosque" to "ayasofyaMosq",
                 "Beyazıt Camii" to "beyazitMosq",
+                "Balçık Fulya Cami" to "balcikfulyaMosq",
+                "Çiftecevizler Cami" to "ciftecevizlerMosq",
+                "Feriköy Paşa Mahallesi Cami" to "ferikoypasamahallesiMosq",
+                "Fulya Yeni Cami" to "fulyayeniMosq",
+                "Hacı Bülent Veziroğlu Cami" to "hacibulentvezirogluMosq",
+                "Harbiye Cami" to "harbiyeMosq",
+                "Halil Rıfat Mahallesi Cami" to "halilrifatmahallesiMosq",
+                "Hamidiye Meşrutiyet Cami" to "hamidiyemesrutiyetMosq",
+                "Hasan Zeyneb Cami" to "hasanzeynebMosq",
+                "Ihlamur Cami" to "ihlamurMosq",
+                "İzzet Paşa Cami" to "izzetpasaMosq",
+                "Muradiye Camii" to "muradiyeMosq",
                 "Nuruosmaniye Camii" to "nuruosmaniyeMosq",
+                "Sultan Beyazidi Veli Cami" to "sultanbayezitMosq",
+                "Şişli Camii" to "sisliMosq",
                 "Süleymaniye Camii" to "suleymaniyeMosq",
                 "Sultanahmet Camii" to "sultanahmetMosq",
+                "Talatpaşa Merkez Cami" to "talatpasamerkezMosq",
+                "Teşvikiye Camii" to "tesvikiyeMosq",
                 "Yeni Camii" to "yeniMosq"
             )
             "mall" -> mapOf(

@@ -34,31 +34,71 @@ class MapViewModel : ViewModel() {
 
 
     fun loadMosqueData() {
-        mosqueRepository.getMuradiyeData { placesList ->
+
+        mosqueRepository.ayasofyaData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.beyazitData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.balcikfulyaMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.ciftecevizlerMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.ferikoypasamahallesiMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.fulyayeniMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.hacibulentvezirogluMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.harbiyeMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.halilrifatmahallesiMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.hamidiyemesrutiyetMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.hasanzeynebMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.ihlamurMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.izzetpasaMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.muradiyeData { placesList ->
             _mosquePlaces.value = placesList
         }
-        mosqueRepository.getTesvikiyeData { placesList ->
+        mosqueRepository.nuruosmaniyeData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.suleymaniyeData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.sisliMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.sultanBayezitData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.sultanAhmetData { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.talatpasamerkezMosq { placeList ->
+            _mosquePlaces.value = placeList
+        }
+        mosqueRepository.tesvikiyeData { placesList ->
             _mosquePlaces.value = placesList
         }
-        mosqueRepository.getSultanBayezitData { placeList ->
-            _mosquePlaces.value = placeList
-        }
-        mosqueRepository.getAyasofyaData { placeList ->
-            _mosquePlaces.value = placeList
-        }
-        mosqueRepository.getBeyazitData { placeList ->
-            _mosquePlaces.value = placeList
-        }
-        mosqueRepository.getNuruosmaniyeData { placeList ->
-            _mosquePlaces.value = placeList
-        }
-        mosqueRepository.getSuleymaniyeData { placeList ->
-            _mosquePlaces.value = placeList
-        }
-        mosqueRepository.getSultanAhmetData { placeList ->
-            _mosquePlaces.value = placeList
-        }
-        mosqueRepository.getYeniData { placeList ->
+        mosqueRepository.yeniData { placeList ->
             _mosquePlaces.value = placeList
         }
     }

@@ -3,9 +3,11 @@ package com.example.toilet.utils
 class CategoryManager {
     private val categoryMap = mapOf(
         "mosque" to listOf(
-            "muradiyeMosq", "tesvikiyeMosq", "sultanbayezitMosq",
-            "ayasofyaMosq", "beyazitMosq", "nuruosmaniyeMosq",
-            "suleymaniyeMosq", "sultanahmetMosq", "yeniMosq"
+
+             "ayasofyaMosq","balcikfulyaMosq", "beyazitMosq","ciftecevizlerMosq","ferikoypasamahallesiMosq" ,"fulyayeniMosq",
+            "hacibulentvezirogluMosq" ,"hamidiyemesrutiyetMosq" ,"halilrifatmahallesiMosq", "harbiyeMosq" ,"hasanzeynebMosq" ,"ihlamurMosq","izzetpasaMosq" ,
+            "muradiyeMosq","nuruosmaniyeMosq","sisliMosq", "suleymaniyeMosq", "sultanahmetMosq",
+            "sultanbayezitMosq","talatpasamerkezMosq" ,"tesvikiyeMosq", "yeniMosq"
         ),
         "mall" to listOf(
             "zorluMall", "citysMall", "istinyeParkMall", "akasyaMall",
@@ -23,7 +25,7 @@ class CategoryManager {
             "sanayimahallesiMetro", "seyrantepeMetro", "sishaneMetro", "taksimMetro", "terazidereMetro", "tersaneMetro",
             "topkapiUlubatliMetro","tuzlaMetro", "veznecilerMetro", "yenibosnaMetro", "yenikapiMetro", "zeytinburnuMetro"
         )
-        // "gebzeMetro", "daricaMetro" "osmangaziMetro", "gebzeteknikuniMetro" , "cayirovaMetro", "tuzlaMetro", "icmelerMetro", "aydintepeMetro", "guzelyaliMetro", "tersaneMetro","kaynarcaMetro", "pendikMetro
+        // "sisliMosq" , "halilrifatmahallesiMosq" , "fulyayeniMosq" , "balcikfulyaMosq" , "hamidiyemesrutiyetMosq" , "ciftecevizlerMosq" , "hacibulentvezirogluMosq" , "ferikoypasamahallesiMosq" , "talatpasamerkezMosq" , "harbiyeMosq" , "hasanzeynebMosq" , "izzetpasaMosq" , "ihlamurMosq"
     )
 
     fun getSubCategories(category: String): List<String>? {
