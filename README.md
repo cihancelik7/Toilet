@@ -6,8 +6,6 @@ Toilet Finder App is a modern Android application that helps users locate the ne
 
 ## 📸 Screenshots
 
-| Home Screen | Map View | Toilet Details |
-|-------------|----------|----------------|
 |<img width="466" alt="Screenshot 2025-05-14 at 19 01 50" src="https://github.com/user-attachments/assets/df80d37d-fa09-43f0-83e1-a637ed124397" />
 <img width="452" alt="Screenshot 2025-05-14 at 19 04 03" src="https://github.com/user-attachments/assets/21bf5a31-7bfa-4e2b-b2cd-98afb29aae05" />
 <img width="336" alt="Screenshot 2025-05-14 at 19 02 39" src="https://github.com/user-attachments/assets/683d02cf-69aa-4290-99b6-bef6545e5401" />
