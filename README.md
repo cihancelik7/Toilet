@@ -46,10 +46,10 @@ This project is licensed under the MIT License.
 
 ## 📸 Screenshots
 
-|<img width="466" alt="Screenshot 2025-05-14 at 19 01 50" src="https://github.com/user-attachments/assets/df80d37d-fa09-43f0-83e1-a637ed124397" />
+<img width="466" alt="Screenshot 2025-05-14 at 19 01 50" src="https://github.com/user-attachments/assets/df80d37d-fa09-43f0-83e1-a637ed124397" />
 <img width="452" alt="Screenshot 2025-05-14 at 19 04 03" src="https://github.com/user-attachments/assets/21bf5a31-7bfa-4e2b-b2cd-98afb29aae05" />
 <img width="336" alt="Screenshot 2025-05-14 at 19 02 39" src="https://github.com/user-attachments/assets/683d02cf-69aa-4290-99b6-bef6545e5401" />
 <img width="435" alt="Screenshot 2025-05-14 at 19 04 12" src="https://github.com/user-attachments/assets/88a4e22d-b5c0-4c3a-90c8-e3b9b15b7b4e" />
 <img width="442" alt="Screenshot 2025-05-14 at 19 06 42" src="https://github.com/user-attachments/assets/189bed9b-db04-4ff2-ad45-c18a27bdf2d6" />
-|
+
 
